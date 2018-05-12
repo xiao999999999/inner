@@ -18,10 +18,8 @@ public interface WareDao {
 
     int update(@Param("entity") Ware entity);
 
-    List<Ware> getById(@Param("id") String id, @Param("availData") int availData);
+    Ware getById(@Param("id") Integer id);
 
-    int deleteById(String id, @Param("operator") String operator);
-
-
+    int deleteById(Integer id);
 
 }

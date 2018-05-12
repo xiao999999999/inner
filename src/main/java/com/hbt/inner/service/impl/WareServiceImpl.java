@@ -1,5 +1,12 @@
 package com.hbt.inner.service.impl;
 
+import com.hbt.inner.common.DataResult;
+import com.hbt.inner.common.ListResult;
+import com.hbt.inner.dao.WareDao;
+import com.hbt.inner.entity.User;
+import com.hbt.inner.param.userParam;
+import com.hbt.inner.service.WareService;
+import com.hbt.inner.utils.CommonUtils;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -19,10 +26,10 @@ import com.hbt.inner.entity.Ware;
 import com.hbt.inner.service.Ware;
 
 /**
-* 描述：
-* @author Json
-* @date 2018-05-11
-*/
+ * 描述：
+ * @author Json
+ * @date 2018-05-11
+ */
 @Service("wareService")
 public class WareServiceImpl implements WareService {
 
@@ -32,132 +39,102 @@ public class WareServiceImpl implements WareService {
     private WareDao wareDao;
 
     /**
-    * 单个保存
-    */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    DataResult<String> saveWare(
-            String name,
-            String courseId,
-            String picture,
-            String brief,
-            Boolean sysDelelte,
-            String operator
-    ){
+     * 单个保存
+     */
+    // @Transactional(rollbackFor = Exception.class)
+    public DataResult<String> saveWare(Ware param){
         DataResult<String> result = new DataResult();
-        if(false){
+        if (CommonUtils.isEmpty(param.getName())) {
             result.setCode("1");
-            result.setCode("1");
-            return result;
+            result.setMessage("参数为空");
         }
         try{
-            // TODO : 前置代码
-            Ware ware = new Ware();
-            ware.setId(CoderGenerator.getDeviceCode(NewCodeUtil.nodeId()));
-            ware.setName(name);
-            ware.setCourseId(courseId);
-            ware.setPicture(picture);
-            ware.setBrief(brief);
-            ware.setCreateTime(createTime);
-            ware.setCreateUser(createUser);
-            ware.setUpdateTime(updateTime);
-            ware.setUpdateUser(updateUser);
-            ware.setSysDelelte(sysDelelte);
+            Ware ware = Ware.builder().brief(param.getBrief()).courseId(param.getCourseId()).name(param.getName()).picture(param.getPicture()).build();
             wareDao.save(ware);
-            // TODO : 后置代码
+            result.setCode("0");
         } catch (Exception e){
-            logger.error("saveWare error:{}", e.getMessage());
+            logger.error("saveUser error:{}", e.getMessage());
             result.setCode("1");
-            result.setMessage("1");
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setMessage("注册失败");
         }
         return result;
     }
+    /**
+     * 批量保存
+     */
+//    @Override
+//    @Transactional(rollbackFor = Exception.class)
+//    DataResult<Boolean> saveWareBatch (String wareJson, String operator){
+//        if(CommonUtils.isEmpty(wareJson)){
+//            result.setCode("1");
+//            result.setCode("1");
+//            return result;
+//        }
+//        try{
+//            List<Ware> wareList = CommonUtils.getListByJson(wareJson, Ware.class);
+//
+//            if (CommonUtils.isEmpty(wareList)) {
+//                result.setCode("1");
+//                result.setMessage("1");
+//                return result;
+//            }
+//
+//            // TODO : 前置代码
+//            wareDao.saveBatch(wareList);
+//            result.setData(True);
+//
+//            // TODO : 后置代码
+//        } catch (Exception e){
+//            logger.error("saveWareBatch error:{}", e.getMessage());
+//            result.setCode("1");
+//            result.setMessage("1");
+//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//        }
+//        return result;
+//    }
 
     /**
-    * 批量保存
-    */
+     * 根据id获取对象
+     */
     @Override
-    @Transactional(rollbackFor = Exception.class)
-    DataResult<Boolean> saveWareBatch (String wareJson, String operator){
-        if(CommonUtils.isEmpty(wareJson)){
-            result.setCode("1");
-            result.setCode("1");
-            return result;
-        }
-        try{
-            List<Ware> wareList = CommonUtils.getListByJson(wareJson, Ware.class);
-
-            if (CommonUtils.isEmpty(wareList)) {
-                result.setCode("1");
-                result.setMessage("1");
-                return result;
-            }
-
-            // TODO : 前置代码
-            wareDao.saveBatch(wareList);
-            result.setData(True);
-
-            // TODO : 后置代码
-        } catch (Exception e){
-            logger.error("saveWareBatch error:{}", e.getMessage());
-            result.setCode("1");
-            result.setMessage("1");
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-        }
-        return result;
-    }
-
-    /**
-    * 根据id获取对象
-    */
-    @Override
-    @Stat
-    public ListResult<Ware> getWareById (String id, int availData){
-        ListResult<Ware> result = new ListResult();
+    public DataResult<Ware> getWareById (Integer id){
+        DataResult<Ware> result = new DataResult();
         if(CommonUtils.isEmpty(id)){
             result.setCode("1");
-            result.setCode("1");
+            result.setCode("id is empty");
             return result;
         }
         try{
-            // TODO : 前置代码
-            List<Ware> wareList = wareDao.getById(id, availData);
-            // TODO : 后置代码
-            if(CommonUtils.isNotEmpty(wareList)){
-                result.setDataList(wareList);
-            }
+            Ware ware = wareDao.getById(id);
+            result.setCode("0");
         } catch (Exception e){
-            logger.error("saveWareById error:{}", e.getMessage());
-            result.setCode("1");
-            result.setMessage("1");
+            logger.error("getWareById error:{}", e.getMessage());
+            result.setCode("0");
+            result.setMessage("getWareById is error");
         }
         return result;
     }
 
     /**
-    * 根据id删除对象
-    */
+     * 根据id删除对象
+     */
     @Override
-    @Stat
-    @Transactional(rollbackFor = Exception.class)
-    public DataResult<Integer> deleteWareById(String id, String operator){
+//    @Transactional(rollbackFor = Exception.class)
+    public DataResult<Integer> deleteWareById(Integer id){
         DataResult<Integer> result = new DataResult();
-        if(CommonUtils.isEmpty(id)){
+        if (CommonUtils.isEmpty(String.valueOf(id))) {
             result.setCode("1");
-            result.setCode("1");
+            result.setCode("id is empty");
             return result;
         }
         try{
-            // TODO : 前置代码
-        int count = wareDao.deleteById(id, operator);
-            // TODO : 后置代码
+            int count = wareDao.deleteById(id);
             result.setData(count);
         } catch (Exception e){
             logger.error("deleteWareById error:{}", e.getMessage());
             result.setCode("1");
-            result.setMessage("1");
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+            result.setMessage("deleteWareById is error");
+//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return result;
     }
@@ -165,19 +142,11 @@ public class WareServiceImpl implements WareService {
 
 
     /**
-    * 更新对象
-    */
+     * 更新对象
+     */
     @Override
-    @Stat
-    @Transactional(rollbackFor = Exception.class)
-    DataResult<Boolean> updateWare (
-                String id,
-                String name,
-                String courseId,
-                String picture,
-                String brief,
-                Boolean sysDelelte,
-                String operator
+//    @Transactional(rollbackFor = Exception.class)
+    DataResult<Boolean> updateWare (Ware param
     ){
         DataResult<Boolean> result = new DataResult();
         if(false){
@@ -186,27 +155,17 @@ public class WareServiceImpl implements WareService {
             return result;
         }
         try{
-            // TODO : 前置代码
-        Ware ware = new Ware();
-        ware.setId(id);
-        ware.setName(name);
-        ware.setCourseId(courseId);
-        ware.setPicture(picture);
-        ware.setBrief(brief);
-        ware.setCreateTime(createTime);
-        ware.setCreateUser(createUser);
-        ware.setUpdateTime(updateTime);
-        ware.setUpdateUser(updateUser);
-        ware.setSysDelelte(sysDelelte);
-        ware.setUpdateUser(operator);
-        wareDao.update(ware);
-            // TODO : 后置代码
+            Ware ware = wareDao.getById(param.getId());
+
+                    Ware ware = Ware.builder().brief(param.getBrief()).courseId(param.getCourseId()).name(param.getName()).picture(param.getPicture()).build();
+
+            wareDao.update(ware);
             result.setData(True);
         } catch (Exception e){
             logger.error("updateWare error:{}", e.getMessage());
             result.setCode("1");
             result.setMessage("1");
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
+//            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
         }
         return result;
     }
