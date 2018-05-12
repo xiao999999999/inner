@@ -2,6 +2,7 @@ package com.hbt.inner.utils;
 
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.JSONArray;
+import com.alibaba.fastjson.JSONObject;
 
 import java.util.*;
 
@@ -12,6 +13,39 @@ import java.util.*;
  */
 public class CommonUtils {
 
+    //文件路径
+    public static String IMAGE_PATH="E:/upload/";
+    //判断上传文件是否为图片
+    public static String[] IMAGE_TYPE={"jpg","gif","jpeg","png","bmp"};
+    public static boolean isPic(String fileExt){
+        for(int i=0;i<IMAGE_TYPE.length;i++){
+            if(fileExt.equals(IMAGE_TYPE[i])){
+                return true;
+            }
+        }
+        return false;
+    }
+    public static String getJSONString(String code) {
+        JSONObject json = new JSONObject();
+        json.put("code", code);
+        return json.toJSONString();
+    }
+
+    public static String getJSONString(String  code, String msg) {
+        JSONObject json = new JSONObject();
+        json.put("code", code);
+        json.put("msg", msg);
+        return json.toJSONString();
+    }
+
+    public static String getJSONString(int code, Map<String, Object> map) {
+        JSONObject json = new JSONObject();
+        json.put("code", code);
+        for (Map.Entry<String, Object> entry : map.entrySet()) {
+            json.put(entry.getKey(), entry.getValue());
+        }
+        return json.toJSONString();
+    }
 
     /*--------------------List转字符串---------------------*/
     public static String listToString(List<String> list, String separator, String open,

@@ -47,15 +47,9 @@ public interface UserService {
 	 */
 
     /**
-    * 根据id获取对象
-    * @param id 
-    */
-    ListResult<User> getUserById(int id);
-
-    /**
     * 根据id删除对象
-    * @param id 
-    */
+    * @param id
+	 */
     DataResult<Integer> deleteUserById(int id);
 
 
@@ -88,7 +82,6 @@ public interface UserService {
         * @param username 真实姓名
 	
     */
-    ListResult<User> getUserByUsername(String username, int availData);
 	DataResult<User> login(String username,String password);
 
 }

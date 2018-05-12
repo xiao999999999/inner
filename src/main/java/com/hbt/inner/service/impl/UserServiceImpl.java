@@ -5,6 +5,8 @@ import com.hbt.inner.common.ListResult;
 import com.hbt.inner.dao.UserDao;
 import com.hbt.inner.param.userParam;
 import com.hbt.inner.service.UserService;
+import com.hbt.inner.utils.CommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -15,6 +17,8 @@ import java.util.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import com.hbt.inner.entity.User;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.multipart.MultipartFile;
 
 
 /**
@@ -60,8 +64,24 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    /**
-    * 批量保存
+    @Override
+    public DataResult<Integer> deleteUserById(int id) {
+        DataResult result=new DataResult();
+        try{
+            int n=userDao.deleteById(id);
+            if(n>0){
+                result.setCode("0");
+                result.setMessage("删除成功");
+            }
+        }catch (Exception e) {
+            logger.error("deleteUser error:{}",e.getMessage());
+            result.setCode("1");
+            result.setMessage("删除失败");
+        }
+        return result;
+    }
+
+    /* 批量保存
 
     @Override
     @Transactional(rollbackFor = Exception.class)
@@ -114,7 +134,7 @@ public class UserServiceImpl implements UserService {
             result.setCode("1");
             result.setMessage("用户不存在");
             return result;
-        } else if(!user.getUsername().equals(username)||!user.getPassword().equals(password)){
+        } else if(!user.getPassword().equals(password)){
             result.setCode("1");
             result.setMessage("用户名或密码错误");
             return result;
@@ -125,10 +145,11 @@ public class UserServiceImpl implements UserService {
             return result;
         }
     }
+    /*
     @Override
     public ListResult<User> getUserById (String username, int availData){
         ListResult<User> result = new ListResult();
-        if(CommonUtils.isEmpty(id)){
+        if(CommonUtils.isEmpty(String.valueOf(id)){
             result.setCode("1");
             result.setCode("1");
             return result;
@@ -147,33 +168,7 @@ public class UserServiceImpl implements UserService {
         }
         return result;
     }
-
-    /**
-    * 根据id删除对象
     */
-    @Override
-    @Transactional(rollbackFor = Exception.class)
-    public DataResult<Integer> deleteUserById(String id, String operator){
-        DataResult<Integer> result = new DataResult();
-        if(CommonUtils.isEmpty(id)){
-            result.setCode("1");
-            result.setCode("1");
-            return result;
-        }
-        try{
-            // TODO : 前置代码
-        int count = userDao.deleteById(id, operator);
-            // TODO : 后置代码
-            result.setData(count);
-        } catch (Exception e){
-            logger.error("deleteUserById error:{}", e.getMessage());
-            result.setCode("1");
-            result.setMessage("1");
-            TransactionAspectSupport.currentTransactionStatus().setRollbackOnly();
-        }
-        return result;
-    }
-
 
 
     /**
@@ -187,7 +182,6 @@ public class UserServiceImpl implements UserService {
             if(before==null){
                  result.setCode("1");
                  result.setMessage("待更新用户不存在");
-                 return result;
             }
             User after=User.builder().id(param.getId()).birthday(param.getBirthday()).gender(param.getGender()).header(param.getHeader())
                     .mobile(param.getMobile()).password(param.getPassword()).qq(param.getQq()).realname(param.getRealname()).title(param.getTitle())
@@ -204,34 +198,7 @@ public class UserServiceImpl implements UserService {
         return result;
     }
 
-    /**
-    * 根据username查询记录
-    *
-    * @param username 真实姓名
-	
-    */
-    @Override
-    public ListResult<User> getUserByUsername (String username, int availData){
-        ListResult<User> result = new ListResult();
-        //TODO:数据校验
-        //if(){
-        //    result.setCode("1");
-        //    result.setCode("1");
-        //    return result;
-        //}
-        try{
-            // TODO : 前置代码
-            List<User> userList = userDao.getByUsername(username, availData);
-            // TODO : 后置代码
-            if(CommonUtils.isNotEmpty(userList)){
-                result.setDataList(userList);
-            }
-        } catch (Exception e){
-            logger.error("getUserByUsername error:{}", e.getMessage());
-            result.setCode("1");
-            result.setMessage("1");
-        }
-        return result;
-    }
+
+
 
 }

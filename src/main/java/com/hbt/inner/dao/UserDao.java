@@ -19,9 +19,10 @@ public interface UserDao {
     int update(@Param("entity") User entity);
 
     User getById(@Param("id") int id);
+
     int getCountByUsername(@Param("username") String username);
 
-    int deleteById(String id, @Param("operator") String operator);
+    int deleteById(int id);
     /**
     * index:t_auth_user ==> T_AUTH_USER_USERNAME_UNIQUE
     */

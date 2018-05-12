@@ -84,7 +84,7 @@
 
     <update id="deleteById">
         update <include refid="tableName"/>
-        set sys_deleted=1, update_user=#{operator}
+        set sys_deleted=1
         where id=#{id}
         and sys_deleted!=1
     </update>
