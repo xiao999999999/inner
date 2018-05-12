@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
-        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.hbt.inner.dao.t_course_sectionDao">
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbt.inner.dao.SectionDao">
 
-    <resultMap id="resultMap" type="com.hbt.inner.dto.t_course_sectionEntity">
+    <resultMap id="resultMap" type="com.hbt.inner.entity.Section">
         <result property="id" column="id" jdbcType="INT"/>
         <result property="courseId" column="course_id" jdbcType="INT"/>
         <result property="parentId" column="parent_id" jdbcType="INT"/>

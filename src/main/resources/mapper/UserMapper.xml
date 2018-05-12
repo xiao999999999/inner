@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
-        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.hbt.inner.dao.t_auth_userDao">
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbt.inner.dao.UserDao">
 
     <resultMap id="resultMap" type="com.hbt.inner.entity.User">
         <result property="id" column="id" jdbcType="INT"/>
@@ -16,8 +16,6 @@
         <result property="title" column="title" jdbcType="VARCHAR"/>
         <result property="wechatId" column="wechat_id" jdbcType="VARCHAR"/>
         <result property="qq" column="qq" jdbcType="VARCHAR"/>
-        <result property="loginTime" column="login_time" jdbcType="DATETIME"/>
-        <result property="ip" column="ip" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="DATETIME"/>
         <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
