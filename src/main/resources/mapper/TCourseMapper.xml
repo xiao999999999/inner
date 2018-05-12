@@ -1,23 +1,23 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hbt.inner.dao.t_courseDao">
+<mapper namespace="com.hbt.inner.dao.TCourseDao">
 
-    <resultMap id="resultMap" type="com.hbt.inner.dto.t_courseEntity">
-        <result property="id" column="id" jdbcType="INT"/>
+    <resultMap id="resultMap" type="com.hbt.inner.entity.TCourse">
+        <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="time" column="time" jdbcType="VARCHAR"/>
         <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="brief" column="brief" jdbcType="TEXT"/>
-        <result property="studyCount" column="study_count" jdbcType="INT"/>
-        <result property="score" column="score" jdbcType="INT"/>
-        <result property="scoreCount" column="score_count" jdbcType="INT"/>
+        <result property="studyCount" column="study_count" jdbcType="INTEGER"/>
+        <result property="score" column="score" jdbcType="INTEGER"/>
+        <result property="scoreCount" column="score_count" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="DATETIME"/>
         <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
-        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="tableName">t_course</sql>

@@ -4,18 +4,18 @@
 <mapper namespace="com.hbt.inner.dao.SectionDao">
 
     <resultMap id="resultMap" type="com.hbt.inner.entity.Section">
-        <result property="id" column="id" jdbcType="INT"/>
-        <result property="courseId" column="course_id" jdbcType="INT"/>
-        <result property="parentId" column="parent_id" jdbcType="INT"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="parentId" column="parent_id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="sort" column="sort" jdbcType="INT"/>
+        <result property="sort" column="sort" jdbcType="INTEGER"/>
         <result property="time" column="time" jdbcType="VARCHAR"/>
         <result property="videoUrl" column="video_url" jdbcType="VARCHAR"/>
         <result property="createTime" column="create_time" jdbcType="DATETIME"/>
         <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
-        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="tableName">t_course_section</sql>

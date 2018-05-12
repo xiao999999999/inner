@@ -4,12 +4,12 @@
 <mapper namespace="com.hbt.inner.dao.UserDao">
 
     <resultMap id="resultMap" type="com.hbt.inner.entity.User">
-        <result property="id" column="id" jdbcType="INT"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="realname" column="realname" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
         <result property="password" column="password" jdbcType="VARCHAR"/>
-        <result property="type" column="type" jdbcType="BIT"/>
-        <result property="gender" column="gender" jdbcType="BIT"/>
+        <result property="type" column="type" jdbcType="INTEGER"/>
+        <result property="gender" column="gender" jdbcType="INTEGER"/>
         <result property="header" column="header" jdbcType="VARCHAR"/>
         <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
         <result property="birthday" column="birthday" jdbcType="DATE"/>
@@ -20,7 +20,7 @@
         <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
-        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="tableName">t_auth_user</sql>

@@ -4,17 +4,17 @@
 <mapper namespace="com.hbt.inner.dao.CourseSectionDao">
 
     <resultMap id="resultMap" type="com.hbt.inner.entity.CourseSection">
-        <result property="id" column="id" jdbcType="INT"/>
-        <result property="userId" column="user_id" jdbcType="INT"/>
-        <result property="courseId" column="course_id" jdbcType="INT"/>
-        <result property="sectionId" column="section_id" jdbcType="INT"/>
-        <result property="status" column="status" jdbcType="INT"/>
-        <result property="rate" column="rate" jdbcType="INT"/>
+        <result property="id" column="id" jdbcType="INTEGER"/>
+        <result property="userId" column="user_id" jdbcType="INTEGER"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
+        <result property="sectionId" column="section_id" jdbcType="INTEGER"/>
+        <result property="status" column="status" jdbcType="INTEGER"/>
+        <result property="rate" column="rate" jdbcType="INTEGER"/>
         <result property="createTime" column="create_time" jdbcType="DATETIME"/>
         <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
-        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="tableName">t_user_course_section</sql>
