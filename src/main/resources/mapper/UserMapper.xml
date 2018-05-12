@@ -1,0 +1,247 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.hbt.inner.dao.t_auth_userDao">
+
+    <resultMap id="resultMap" type="com.hbt.inner.entity.User">
+        <result property="id" column="id" jdbcType="INT"/>
+        <result property="realname" column="realname" jdbcType="VARCHAR"/>
+        <result property="username" column="username" jdbcType="VARCHAR"/>
+        <result property="password" column="password" jdbcType="VARCHAR"/>
+        <result property="type" column="type" jdbcType="BIT"/>
+        <result property="gender" column="gender" jdbcType="BIT"/>
+        <result property="header" column="header" jdbcType="VARCHAR"/>
+        <result property="mobile" column="mobile" jdbcType="VARCHAR"/>
+        <result property="birthday" column="birthday" jdbcType="DATE"/>
+        <result property="title" column="title" jdbcType="VARCHAR"/>
+        <result property="wechatId" column="wechat_id" jdbcType="VARCHAR"/>
+        <result property="qq" column="qq" jdbcType="VARCHAR"/>
+        <result property="loginTime" column="login_time" jdbcType="DATETIME"/>
+        <result property="ip" column="ip" jdbcType="VARCHAR"/>
+        <result property="createTime" column="create_time" jdbcType="DATETIME"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="tableName">t_auth_user</sql>
+    <sql id="columns">
+        id,
+        realname,
+        username,
+        password,
+        user_type,
+        gender,
+        header,
+        mobile,
+        birthday,
+        title,
+        wechat_id,
+        qq,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        sys_delelte
+    </sql>
+
+    <!-- single entity save -->
+    <insert id="save" parameterType="com.hbt.inner.entity.User" keyProperty="id" useGeneratedKeys="true">
+        insert IGNORE into <include refid="tableName"/>
+        <trim prefix="(" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="username != null" >
+                username,
+            </if>
+            <if test=" realname != null" >
+                realname,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="user_type != null" >
+                user_type,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="header != null" >
+                header,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="birthday != null" >
+                birthday,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="wechat_id != null" >
+                wechat_id,
+            </if>
+            <if test="qq != null" >
+                qq,
+            </if>
+            <if test="create_time != null" >
+                create_time,
+            </if>
+            <if test="create_user != null" >
+                create_user,
+            </if>
+            <if test="update_time != null" >
+                update_time,
+            </if>
+            <if test="update_user != null" >
+                update_user,
+            </if>
+            <if test="sys_delelte != null" >
+                sys_delelte,
+            </if>
+        </trim>
+        <trim prefix="values (" suffix=")" suffixOverrides="," >
+            <if test="id != null" >
+                id,
+            </if>
+            <if test="username != null" >
+                username,
+            </if>
+            <if test=" realname != null" >
+                realname,
+            </if>
+            <if test="password != null" >
+                password,
+            </if>
+            <if test="user_type != null" >
+                user_type,
+            </if>
+            <if test="gender != null" >
+                gender,
+            </if>
+            <if test="header != null" >
+                header,
+            </if>
+            <if test="mobile != null" >
+                mobile,
+            </if>
+            <if test="birthday != null" >
+                birthday,
+            </if>
+            <if test="title != null" >
+                title,
+            </if>
+            <if test="wechat_id != null" >
+                wechat_id,
+            </if>
+            <if test="qq != null" >
+                qq,
+            </if>
+            <if test="create_time != null" >
+                create_time,
+            </if>
+            <if test="create_user != null" >
+                create_user,
+            </if>
+            <if test="update_time != null" >
+                update_time,
+            </if>
+            <if test="update_user != null" >
+                update_user,
+            </if>
+            <if test="sys_delelte != null" >
+                sys_delelte,
+            </if>
+        </trim>
+    </insert>
+
+    <!-- mutipule entity save -->
+    <insert id="insertBatch">
+        insert into
+        <include refid="tableName"/>
+        (<include refid="columns"/>) values
+        <foreach collection="entities" open="(" close=")" item="entity" separator=",">
+        (
+            #{entity.id},
+            #{entity.realname},
+            #{entity.username},
+            #{entity.password},
+            #{entity.type},
+            #{entity.gender},
+            #{entity.header},
+            #{entity.mobile},
+            #{entity.birthday},
+            #{entity.title},
+            #{entity.wechatId},
+            #{entity.qq},
+            #{entity.loginTime},
+            #{entity.ip},
+            #{entity.createTime},
+            #{entity.createUser},
+            #{entity.updateTime},
+            #{entity.updateUser},
+            #{entity.sysDelelte}
+        )
+        </foreach>
+    </insert>
+
+    <!-- get entity by id -->
+    <select id="getById" parameterType="int" resultMap="resultMap">
+        select <include refid="columns"/>
+        from <include refid="tableName"/>
+        where id = #{id}
+        and sys_deleted=0 
+    </select>
+    <select id="getCountByUserName" resultType="int" parameterType="map">
+        select count(1)
+        from <include refid="tableName"/>
+        where username = #{username}
+        and sys_deleted=0
+    </select>
+
+    <update id="deleteById">
+        update <include refid="tableName"/>
+        set sys_deleted=1, update_user=#{operator}
+        where id=#{id}
+        and sys_deleted!=1
+    </update>
+
+
+<!-- update entity -->
+    <update id="update" parameterType="com.hbt.inner.entity.User">
+        update
+        <include refid="tableName"/>
+        set
+            realname = #{entity.realname},
+            username = #{entity.username},
+            password = #{entity.password},
+            type = #{entity.type},
+            gender = #{entity.gender},
+            header = #{entity.header},
+            mobile = #{entity.mobile},
+            birthday = #{entity.birthday},
+            title = #{entity.title},
+            wechat_id = #{entity.wechatId},
+            qq = #{entity.qq},
+            login_time = #{entity.loginTime},
+            ip = #{entity.ip},
+            create_time = #{entity.createTime},
+            create_user = #{entity.createUser},
+            update_time = #{entity.updateTime},
+            update_user = #{entity.updateUser},
+            sys_delelte = #{entity.sysDelelte}
+        where  and sys_deleted!=1
+    </update>
+
+    <select id="getByUsername" parameterType="String" resultMap="resultMap">
+        select <include refid="columns"/>
+        from <include refid="tableName"/>
+        where 1=1
+        and sys_deleted=0 
+        <if test="username!=null">
+            and username=#{username}
+        </if>
+    </select>
+</mapper>

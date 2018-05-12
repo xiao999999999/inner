@@ -1,0 +1,111 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
+        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
+<mapper namespace="com.hbt.inner.dao.t_user_course_sectionDao">
+
+    <resultMap id="resultMap" type="com.hbt.inner.dto.t_user_course_sectionEntity">
+        <result property="id" column="id" jdbcType="INT"/>
+        <result property="userId" column="user_id" jdbcType="INT"/>
+        <result property="courseId" column="course_id" jdbcType="INT"/>
+        <result property="sectionId" column="section_id" jdbcType="INT"/>
+        <result property="status" column="status" jdbcType="INT"/>
+        <result property="rate" column="rate" jdbcType="INT"/>
+        <result property="createTime" column="create_time" jdbcType="DATETIME"/>
+        <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
+        <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
+        <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+    </resultMap>
+
+    <sql id="tableName">t_user_course_section</sql>
+    <sql id="columns">
+        id,
+        user_id,
+        course_id,
+        section_id,
+        status,
+        rate,
+        create_time,
+        create_user,
+        update_time,
+        update_user,
+        sys_delelte
+    </sql>
+
+    <!-- single entity save -->
+    <insert id="save">
+        insert into
+        <include refid="tableName"/>
+        (<include refid="columns"/>) values
+        (
+            #{entity.id},
+            #{entity.userId},
+            #{entity.courseId},
+            #{entity.sectionId},
+            #{entity.status},
+            #{entity.rate},
+            #{entity.createTime},
+            #{entity.createUser},
+            #{entity.updateTime},
+            #{entity.updateUser},
+            #{entity.sysDelelte}
+        )
+    </insert>
+
+    <!-- mutipule entity save -->
+    <insert id="insertBatch">
+        insert into
+        <include refid="tableName"/>
+        (<include refid="columns"/>) values
+        <foreach collection="entities" open="(" close=")" item="entity" separator=",">
+        (
+            #{entity.id},
+            #{entity.userId},
+            #{entity.courseId},
+            #{entity.sectionId},
+            #{entity.status},
+            #{entity.rate},
+            #{entity.createTime},
+            #{entity.createUser},
+            #{entity.updateTime},
+            #{entity.updateUser},
+            #{entity.sysDelelte}
+        )
+        </foreach>
+    </insert>
+
+    <!-- get entity by id -->
+    <select id="getById" resultMap="resultMap">
+        select <include refid="columns"/>
+        from <include refid="tableName"/>
+        where id = #{id}
+        and sys_deleted=0 
+    </select>
+
+    <update id="deleteById">
+        update <include refid="tableName"/>
+        set sys_deleted=1, update_user=#{operator}
+        where id=#{id}
+        and sys_deleted!=1
+    </update>
+
+
+<!-- update entity -->
+    <update id="update" parameterType="com.hbt.inner.entity.CourseSection">
+        update
+        <include refid="tableName"/>
+        set
+            user_id = #{entity.userId},
+            course_id = #{entity.courseId},
+            section_id = #{entity.sectionId},
+            status = #{entity.status},
+            rate = #{entity.rate},
+            create_time = #{entity.createTime},
+            create_user = #{entity.createUser},
+            update_time = #{entity.updateTime},
+            update_user = #{entity.updateUser},
+            sys_delelte = #{entity.sysDelelte}
+        where  and sys_deleted!=1
+    </update>
+
+</mapper>
