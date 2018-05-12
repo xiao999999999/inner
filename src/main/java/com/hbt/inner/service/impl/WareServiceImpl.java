@@ -1,32 +1,25 @@
 package com.hbt.inner.service.impl;
 
 import com.hbt.inner.common.DataResult;
-import com.hbt.inner.common.ListResult;
+import com.hbt.inner.common.HostHolder;
 import com.hbt.inner.dao.WareDao;
 import com.hbt.inner.entity.User;
-import com.hbt.inner.param.userParam;
 import com.hbt.inner.service.WareService;
 import com.hbt.inner.utils.CommonUtils;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
-import org.springframework.transaction.interceptor.TransactionAspectSupport;
-import javax.annotation.Resource;
-import com.ioe.stat.annotation.Stat;
 
-import com.ioe.common.domain.DataResult;
-import com.ioe.common.domain.ListResult;
-import com.ioe.common.domain.PageResult;
-import java.util.*;
-import java.math.BigDecimal;
+import javax.annotation.Resource;
+
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alibaba.fastjson.JSONObject;
 
 import com.hbt.inner.entity.Ware;
-import com.hbt.inner.service.Ware;
 
 /**
  * 描述：
+ *
  * @author Json
  * @date 2018-05-11
  */
@@ -37,22 +30,24 @@ public class WareServiceImpl implements WareService {
 
     @Resource
     private WareDao wareDao;
+    @Autowired
+    HostHolder hostHolder;
 
     /**
      * 单个保存
      */
     // @Transactional(rollbackFor = Exception.class)
-    public DataResult<String> saveWare(Ware param){
+    public DataResult<String> saveWare(Ware param) {
         DataResult<String> result = new DataResult();
         if (CommonUtils.isEmpty(param.getName())) {
             result.setCode("1");
             result.setMessage("参数为空");
         }
-        try{
+        try {
             Ware ware = Ware.builder().brief(param.getBrief()).courseId(param.getCourseId()).name(param.getName()).picture(param.getPicture()).build();
             wareDao.save(ware);
             result.setCode("0");
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("saveUser error:{}", e.getMessage());
             result.setCode("1");
             result.setMessage("注册失败");
@@ -97,17 +92,17 @@ public class WareServiceImpl implements WareService {
      * 根据id获取对象
      */
     @Override
-    public DataResult<Ware> getWareById (Integer id){
+    public DataResult<Ware> getWareById(Integer id) {
         DataResult<Ware> result = new DataResult();
-        if(CommonUtils.isEmpty(id)){
+        if (CommonUtils.isEmpty(String.valueOf(id))) {
             result.setCode("1");
             result.setCode("id is empty");
             return result;
         }
-        try{
+        try {
             Ware ware = wareDao.getById(id);
             result.setCode("0");
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("getWareById error:{}", e.getMessage());
             result.setCode("0");
             result.setMessage("getWareById is error");
@@ -120,17 +115,17 @@ public class WareServiceImpl implements WareService {
      */
     @Override
 //    @Transactional(rollbackFor = Exception.class)
-    public DataResult<Integer> deleteWareById(Integer id){
+    public DataResult<Integer> deleteWareById(Integer id) {
         DataResult<Integer> result = new DataResult();
         if (CommonUtils.isEmpty(String.valueOf(id))) {
             result.setCode("1");
             result.setCode("id is empty");
             return result;
         }
-        try{
+        try {
             int count = wareDao.deleteById(id);
             result.setData(count);
-        } catch (Exception e){
+        } catch (Exception e) {
             logger.error("deleteWareById error:{}", e.getMessage());
             result.setCode("1");
             result.setMessage("deleteWareById is error");
@@ -140,28 +135,28 @@ public class WareServiceImpl implements WareService {
     }
 
 
-
     /**
      * 更新对象
      */
-    @Override
 //    @Transactional(rollbackFor = Exception.class)
-    DataResult<Boolean> updateWare (Ware param
-    ){
-        DataResult<Boolean> result = new DataResult();
-        if(false){
+    public DataResult<String> updateWare(Ware param) {
+        DataResult<String> result = new DataResult();
+        if (false) {
             result.setCode("1");
             result.setCode("1");
             return result;
         }
-        try{
+        try {
             Ware ware = wareDao.getById(param.getId());
-
-                    Ware ware = Ware.builder().brief(param.getBrief()).courseId(param.getCourseId()).name(param.getName()).picture(param.getPicture()).build();
-
+            if (ware == null) {
+                result.setCode("1");
+                result.setMessage("ware had been deleted!");
+                return result;
+            }
+            Ware ware1 = Ware.builder().id(param.getId()).brief(param.getBrief()).courseId(param.getCourseId()).name(param.getName()).picture(param.getPicture()).build();
             wareDao.update(ware);
-            result.setData(True);
-        } catch (Exception e){
+            result.setData("0");
+        } catch (Exception e) {
             logger.error("updateWare error:{}", e.getMessage());
             result.setCode("1");
             result.setMessage("1");

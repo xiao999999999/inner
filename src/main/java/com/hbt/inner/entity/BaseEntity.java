@@ -1,5 +1,9 @@
 package com.hbt.inner.entity;
 
+import lombok.Builder;
+import lombok.Getter;
+import lombok.Setter;
+
 import java.util.Date;
 /**
    *param:
@@ -9,42 +13,14 @@ import java.util.Date;
     update_user,
     sys_deleted
 */
+@Getter
+@Setter
+@Builder
 public abstract class BaseEntity {
     private Date createTime;
     private String createUser;
     private Date updateTime;
     private String updateUser;
 
-    public void setCreateTime(Date createTime) {
-        this.createTime = createTime;
-    }
-
-    public void setCreateUser(String createUser) {
-        this.createUser = createUser;
-    }
-
-    public void setUpdateTime(Date updateTime) {
-        this.updateTime = updateTime;
-    }
-
-    public void setUpdateUser(String updateUser) {
-        this.updateUser = updateUser;
-    }
-
-    public Date getCreateTime() {
-        return createTime;
-    }
-
-    public String getCreateUser() {
-        return createUser;
-    }
-
-    public Date getUpdateTime(Date date) {
-        return updateTime;
-    }
-
-    public String getUpdateUser() {
-        return updateUser;
-    }
 
 }

@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
-        "http://ibatis.apache.org/dtd/ibatis-3-mapper.dtd">
-<mapper namespace="com.hbt.inner.dao.t_course_wareDao">
+        "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.hbt.inner.dao.WareDao">
 
-    <resultMap id="resultMap" type="com.hbt.inner.dto.t_course_wareEntity">
-        <result property="id" column="id" jdbcType="INT"/>
+    <resultMap id="resultMap" type="com.hbt.inner.entity.Ware">
+        <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
-        <result property="courseId" column="course_id" jdbcType="INT"/>
+        <result property="courseId" column="course_id" jdbcType="INTEGER"/>
         <result property="picture" column="picture" jdbcType="VARCHAR"/>
         <result property="brief" column="brief" jdbcType="TEXT"/>
         <result property="createTime" column="create_time" jdbcType="DATETIME"/>
         <result property="createUser" column="create_user" jdbcType="VARCHAR"/>
         <result property="updateTime" column="update_time" jdbcType="TIMESTAMP"/>
         <result property="updateUser" column="update_user" jdbcType="VARCHAR"/>
-        <result property="sysDelelte" column="sys_delelte" jdbcType="BIT"/>
+        <result property="sysDelelte" column="sys_delelte" jdbcType="INTEGER"/>
     </resultMap>
 
     <sql id="tableName">t_course_ware</sql>
@@ -36,71 +36,74 @@
         <include refid="tableName"/>
         (<include refid="columns"/>) values
         (
-            #{entity.id},
-            #{entity.name},
-            #{entity.courseId},
-            #{entity.picture},
-            #{entity.brief},
-            #{entity.createTime},
-            #{entity.createUser},
-            #{entity.updateTime},
-            #{entity.updateUser},
-            #{entity.sysDelelte}
+        #{entity.id},
+        #{entity.name},
+        #{entity.courseId},
+        #{entity.picture},
+        #{entity.brief},
+        #{entity.createTime},
+        #{entity.createUser},
+        #{entity.updateTime},
+        #{entity.updateUser},
+        #{entity.sysDelelte}
         )
     </insert>
 
-    <!-- mutipule entity save -->
-    <insert id="insertBatch">
-        insert into
-        <include refid="tableName"/>
-        (<include refid="columns"/>) values
-        <foreach collection="entities" open="(" close=")" item="entity" separator=",">
-        (
-            #{entity.id},
-            #{entity.name},
-            #{entity.courseId},
-            #{entity.picture},
-            #{entity.brief},
-            #{entity.createTime},
-            #{entity.createUser},
-            #{entity.updateTime},
-            #{entity.updateUser},
-            #{entity.sysDelelte}
-        )
-        </foreach>
-    </insert>
+    <!--&lt;!&ndash; mutipule entity save &ndash;&gt;-->
+    <!--<insert id="insertBatch">-->
+    <!--insert into-->
+    <!--<include refid="tableName"/>-->
+    <!--(<include refid="columns"/>) values-->
+    <!--<foreach collection="entities" open="(" close=")" item="entity" separator=",">-->
+    <!--(-->
+    <!--#{entity.id},-->
+    <!--#{entity.name},-->
+    <!--#{entity.courseId},-->
+    <!--#{entity.picture},-->
+    <!--#{entity.brief},-->
+    <!--#{entity.createTime},-->
+    <!--#{entity.createUser},-->
+    <!--#{entity.updateTime},-->
+    <!--#{entity.updateUser},-->
+    <!--#{entity.sysDelelte}-->
+    <!--)-->
+    <!--</foreach>-->
+    <!--</insert>-->
 
     <!-- get entity by id -->
     <select id="getById" resultMap="resultMap">
-        select <include refid="columns"/>
-        from <include refid="tableName"/>
+        select
+        <include refid="columns"/>
+        from
+        <include refid="tableName"/>
         where id = #{id}
-        and sys_deleted=0 
+        and sys_deleted=0
     </select>
 
     <update id="deleteById">
-        update <include refid="tableName"/>
-        set sys_deleted=1, update_user=#{operator}
+        update
+        <include refid="tableName"/>
+        set sys_deleted=1
         where id=#{id}
         and sys_deleted!=1
     </update>
 
 
-<!-- update entity -->
-    <update id="update" parameterType="com.hbt.inner.entity.Ware">
+    <!-- update entity -->
+    <update id="update">
         update
         <include refid="tableName"/>
         set
-            name = #{entity.name},
-            course_id = #{entity.courseId},
-            picture = #{entity.picture},
-            brief = #{entity.brief},
-            create_time = #{entity.createTime},
-            create_user = #{entity.createUser},
-            update_time = #{entity.updateTime},
-            update_user = #{entity.updateUser},
-            sys_delelte = #{entity.sysDelelte}
-        where  and sys_deleted!=1
+        name = #{entity.name},
+        course_id = #{entity.courseId},
+        picture = #{entity.picture},
+        brief = #{entity.brief},
+        create_time = #{entity.createTime},
+        create_user = #{entity.createUser},
+        update_time = #{entity.updateTime},
+        update_user = #{entity.updateUser},
+        sys_delelte = #{entity.sysDelelte}
+        where and sys_deleted!=1
     </update>
 
 </mapper>
