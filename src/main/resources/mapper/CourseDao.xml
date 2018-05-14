@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//ibatis.apache.org//DTD Mapper 3.0//EN"
         "http://mybatis.apache.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.hbt.inner.dao.TCourseDao">
+<mapper namespace="com.hbt.inner.dao.CourseDao">
 
-    <resultMap id="resultMap" type="com.hbt.inner.entity.TCourse">
+    <resultMap id="resultMap" type="com.hbt.inner.entity.Course">
         <result property="id" column="id" jdbcType="INTEGER"/>
         <result property="name" column="name" jdbcType="VARCHAR"/>
         <result property="username" column="username" jdbcType="VARCHAR"/>
@@ -103,7 +103,7 @@
 
 
 <!-- update entity -->
-    <update id="update" parameterType="com.hbt.inner.entity.TCourse">
+    <update id="update" parameterType="com.hbt.inner.entity.Course">
         update
         <include refid="tableName"/>
         set

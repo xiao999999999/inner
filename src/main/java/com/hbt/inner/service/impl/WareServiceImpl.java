@@ -16,6 +16,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import com.hbt.inner.entity.Ware;
+import org.springframework.web.multipart.MultipartFile;
 
 /**
  * 描述：
@@ -87,6 +88,12 @@ public class WareServiceImpl implements WareService {
 //        }
 //        return result;
 //    }
+    public DataResult<String> uploadWare(MultipartFile file){
+        
+        return null;
+    }
+
+
 
     /**
      * 根据id获取对象

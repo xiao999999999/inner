@@ -1,5 +1,6 @@
 package com.hbt.inner.service.impl;
 
+import com.hbt.inner.dao.CourseSectionDao;
 import com.hbt.inner.service.CourseSectionService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -25,7 +26,7 @@ import com.hbt.inner.service.CourseSection;
 * @date 2018-05-11
 */
 @Service("courseSectionService")
-public class CourseSectionServiceImpl implements CourseSectionService {
+public class TCourseSectionServiceImpl implements CourseSectionService {
 
     private static Logger logger = LoggerFactory.getLogger(CourseSectionServiceImpl.class);
 

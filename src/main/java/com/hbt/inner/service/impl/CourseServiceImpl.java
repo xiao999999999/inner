@@ -1,5 +1,7 @@
 package com.hbt.inner.service.impl;
 
+import com.hbt.inner.dao.CourseDao;
+import com.hbt.inner.service.CourseService;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.transaction.interceptor.TransactionAspectSupport;
@@ -10,12 +12,11 @@ import com.ioe.common.domain.DataResult;
 import com.ioe.common.domain.ListResult;
 import com.ioe.common.domain.PageResult;
 import java.util.*;
-import java.math.BigDecimal;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import com.alibaba.fastjson.JSONObject;
 
-import com.hbt.inner.entity.TCourse;
+import com.hbt.inner.entity.Course;
 import com.hbt.inner.service.TCourse;
 
 /**
@@ -24,12 +25,12 @@ import com.hbt.inner.service.TCourse;
 * @date 2018-05-11
 */
 @Service("tCourseService")
-public class TCourseServiceImpl implements TCourseService {
+public class CourseServiceImpl implements CourseService {
 
-    private static Logger logger = LoggerFactory.getLogger(TCourseServiceImpl.class);
+    private static Logger logger = LoggerFactory.getLogger(CourseServiceImpl.class);
 
     @Resource
-    private TCourseDao tCourseDao;
+    private CourseDao CourseDao;
 
     /**
     * 单个保存
@@ -56,22 +57,22 @@ public class TCourseServiceImpl implements TCourseService {
         }
         try{
             // TODO : 前置代码
-            TCourse tCourse = new TCourse();
-            tCourse.setId(CoderGenerator.getDeviceCode(NewCodeUtil.nodeId()));
-            tCourse.setName(name);
-            tCourse.setUsername(username);
-            tCourse.setTime(time);
-            tCourse.setPicture(picture);
-            tCourse.setBrief(brief);
-            tCourse.setStudyCount(studyCount);
-            tCourse.setScore(score);
-            tCourse.setScoreCount(scoreCount);
-            tCourse.setCreateTime(createTime);
-            tCourse.setCreateUser(createUser);
-            tCourse.setUpdateTime(updateTime);
-            tCourse.setUpdateUser(updateUser);
-            tCourse.setSysDelelte(sysDelelte);
-            tCourseDao.save(tCourse);
+            Course course = new Course();
+            course.setId(CoderGenerator.getDeviceCode(NewCodeUtil.nodeId()));
+            course.setName(name);
+            course.setUsername(username);
+            course.setTime(time);
+            course.setPicture(picture);
+            course.setBrief(brief);
+            course.setStudyCount(studyCount);
+            course.setScore(score);
+            course.setScoreCount(scoreCount);
+            course.setCreateTime(createTime);
+            course.setCreateUser(createUser);
+            course.setUpdateTime(updateTime);
+            course.setUpdateUser(updateUser);
+            course.setSysDelelte(sysDelelte);
+            tCourseDao.save(course);
             // TODO : 后置代码
         } catch (Exception e){
             logger.error("saveTCourse error:{}", e.getMessage());
@@ -94,16 +95,16 @@ public class TCourseServiceImpl implements TCourseService {
             return result;
         }
         try{
-            List<TCourse> tCourseList = CommonUtils.getListByJson(tCourseJson, TCourse.class);
+            List<Course> courseList = CommonUtils.getListByJson(tCourseJson, Course.class);
 
-            if (CommonUtils.isEmpty(tCourseList)) {
+            if (CommonUtils.isEmpty(courseList)) {
                 result.setCode("1");
                 result.setMessage("1");
                 return result;
             }
 
             // TODO : 前置代码
-            tCourseDao.saveBatch(tCourseList);
+            tCourseDao.saveBatch(courseList);
             result.setData(True);
 
             // TODO : 后置代码
@@ -121,8 +122,8 @@ public class TCourseServiceImpl implements TCourseService {
     */
     @Override
     @Stat
-    public ListResult<TCourse> getTCourseById (String id, int availData){
-        ListResult<TCourse> result = new ListResult();
+    public ListResult<Course> getTCourseById (String id, int availData){
+        ListResult<Course> result = new ListResult();
         if(CommonUtils.isEmpty(id)){
             result.setCode("1");
             result.setCode("1");
@@ -130,10 +131,10 @@ public class TCourseServiceImpl implements TCourseService {
         }
         try{
             // TODO : 前置代码
-            List<TCourse> tCourseList = tCourseDao.getById(id, availData);
+            List<Course> courseList = tCourseDao.getById(id, availData);
             // TODO : 后置代码
-            if(CommonUtils.isNotEmpty(tCourseList)){
-                result.setDataList(tCourseList);
+            if(CommonUtils.isNotEmpty(courseList)){
+                result.setDataList(courseList);
             }
         } catch (Exception e){
             logger.error("saveTCourseById error:{}", e.getMessage());
@@ -199,23 +200,23 @@ public class TCourseServiceImpl implements TCourseService {
         }
         try{
             // TODO : 前置代码
-        TCourse tCourse = new TCourse();
-        tCourse.setId(id);
-        tCourse.setName(name);
-        tCourse.setUsername(username);
-        tCourse.setTime(time);
-        tCourse.setPicture(picture);
-        tCourse.setBrief(brief);
-        tCourse.setStudyCount(studyCount);
-        tCourse.setScore(score);
-        tCourse.setScoreCount(scoreCount);
-        tCourse.setCreateTime(createTime);
-        tCourse.setCreateUser(createUser);
-        tCourse.setUpdateTime(updateTime);
-        tCourse.setUpdateUser(updateUser);
-        tCourse.setSysDelelte(sysDelelte);
-        tCourse.setUpdateUser(operator);
-        tCourseDao.update(tCourse);
+        Course course = new Course();
+        course.setId(id);
+        course.setName(name);
+        course.setUsername(username);
+        course.setTime(time);
+        course.setPicture(picture);
+        course.setBrief(brief);
+        course.setStudyCount(studyCount);
+        course.setScore(score);
+        course.setScoreCount(scoreCount);
+        course.setCreateTime(createTime);
+        course.setCreateUser(createUser);
+        course.setUpdateTime(updateTime);
+        course.setUpdateUser(updateUser);
+        course.setSysDelelte(sysDelelte);
+        course.setUpdateUser(operator);
+        tCourseDao.update(course);
             // TODO : 后置代码
             result.setData(True);
         } catch (Exception e){

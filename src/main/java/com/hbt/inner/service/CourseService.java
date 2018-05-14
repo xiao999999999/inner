@@ -2,14 +2,14 @@ package com.hbt.inner.service;
 
 import com.hbt.inner.common.DataResult;
 import com.hbt.inner.common.ListResult;
-import com.hbt.inner.entity.TCourse;
+import com.hbt.inner.entity.Course;
 
 /**
 * 描述： 服务实现层接口
 * @author Json
 * @date 2018-05-11
 */
-public interface TCourseService {
+public interface CourseService {
 
 
     /**
@@ -39,7 +39,7 @@ public interface TCourseService {
     * 根据id获取对象
     * @param id 
     */
-    ListResult<TCourse> getTCourseById(String id, int availData);
+    ListResult<Course> getTCourseById(String id, int availData);
 
     /**
     * 根据id删除对象

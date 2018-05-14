@@ -2,7 +2,11 @@ package com.hbt.inner.service;
 
 import com.hbt.inner.common.DataResult;
 import com.hbt.inner.common.ListResult;
+import com.hbt.inner.common.Result;
 import com.hbt.inner.entity.Ware;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.File;
 
 /**
  * 描述： 服务实现层接口
@@ -24,6 +28,13 @@ public interface WareService {
      * @param operator   操作者编号
      */
     DataResult<String> saveWare(Ware param);
+
+    /**
+     * 上传课件
+     * @param file
+     * @return
+     */
+    DataResult<String> uploadWare(MultipartFile file);
 
     /**
      * 批量保存
