@@ -26,7 +26,7 @@ import com.hbt.inner.service.CourseSection;
 * @date 2018-05-11
 */
 @Service("courseSectionService")
-public class TCourseSectionServiceImpl implements CourseSectionService {
+public class CourseSectionServiceImpl implements CourseSectionService {
 
     private static Logger logger = LoggerFactory.getLogger(CourseSectionServiceImpl.class);
 
