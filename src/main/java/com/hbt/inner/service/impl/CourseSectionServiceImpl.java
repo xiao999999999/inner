@@ -116,7 +116,6 @@ public class CourseSectionServiceImpl implements CourseSectionService {
     * 根据id获取对象
     */
     @Override
-    @Stat
     public ListResult<CourseSection> getCourseSectionById (String id, int availData){
         ListResult<CourseSection> result = new ListResult();
         if(CommonUtils.isEmpty(id)){
@@ -143,7 +142,6 @@ public class CourseSectionServiceImpl implements CourseSectionService {
     * 根据id删除对象
     */
     @Override
-    @Stat
     @Transactional(rollbackFor = Exception.class)
     public DataResult<Integer> deleteCourseSectionById(String id, String operator){
         DataResult<Integer> result = new DataResult();
@@ -172,7 +170,6 @@ public class CourseSectionServiceImpl implements CourseSectionService {
     * 更新对象
     */
     @Override
-    @Stat
     @Transactional(rollbackFor = Exception.class)
     DataResult<Boolean> updateCourseSection (
                 String id,

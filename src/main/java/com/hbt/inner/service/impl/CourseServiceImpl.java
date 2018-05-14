@@ -121,7 +121,7 @@ public class CourseServiceImpl implements CourseService {
     * 根据id获取对象
     */
     @Override
-    @Stat
+
     public ListResult<Course> getTCourseById (String id, int availData){
         ListResult<Course> result = new ListResult();
         if(CommonUtils.isEmpty(id)){
@@ -148,7 +148,7 @@ public class CourseServiceImpl implements CourseService {
     * 根据id删除对象
     */
     @Override
-    @Stat
+
     @Transactional(rollbackFor = Exception.class)
     public DataResult<Integer> deleteTCourseById(String id, String operator){
         DataResult<Integer> result = new DataResult();
@@ -177,7 +177,7 @@ public class CourseServiceImpl implements CourseService {
     * 更新对象
     */
     @Override
-    @Stat
+
     @Transactional(rollbackFor = Exception.class)
     DataResult<Boolean> updateTCourse (
                 String id,

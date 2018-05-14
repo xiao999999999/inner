@@ -116,7 +116,7 @@ public class SectionServiceImpl implements SectionService {
     * 根据id获取对象
     */
     @Override
-    @Stat
+
     public ListResult<Section> getSectionById (String id, int availData){
         ListResult<Section> result = new ListResult();
         if(CommonUtils.isEmpty(id)){
@@ -143,7 +143,7 @@ public class SectionServiceImpl implements SectionService {
     * 根据id删除对象
     */
     @Override
-    @Stat
+
     @Transactional(rollbackFor = Exception.class)
     public DataResult<Integer> deleteSectionById(String id, String operator){
         DataResult<Integer> result = new DataResult();
@@ -172,7 +172,7 @@ public class SectionServiceImpl implements SectionService {
     * 更新对象
     */
     @Override
-    @Stat
+
     @Transactional(rollbackFor = Exception.class)
     DataResult<Boolean> updateSection (
                 String id,
